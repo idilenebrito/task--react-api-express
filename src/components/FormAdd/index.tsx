@@ -1,21 +1,16 @@
-import { useState, ChangeEvent, FormEvent, useEffect } from 'react';
-import { Tarefa } from '../../types/Task';
-import styles from './styles.module.scss';
+import { useState, ChangeEvent, FormEvent, useEffect } from "react";
+import styles from "./styles.module.scss";
+import { postTask } from "../../services/task.service";
 
-type Props = {
-  addTarefa: (novaTarefa: Tarefa) => void;
-};
-
-export const FormAdd = ({ addTarefa }: Props) => {
+export const FormAdd = () => {
   //values recebe o valor que o usuario esta digitando e passa ele por props para funçao que esta no app
   const [values, setValues] = useState({
-    id: Math.floor(Math.random() * 65536),
-    titulo: '',
-    descricao: '',
-    prioridade: 1,
-    dataFim: '',
-    status: true,
+    titulo: "",
+    descricao: "",
+    prioridade: 5,
+    concluido: false,
   });
+
   const [enableButton, setEnableButton] = useState(true);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -26,22 +21,25 @@ export const FormAdd = ({ addTarefa }: Props) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    await postTask({
+      titulo: values.titulo,
+      descricao: values.descricao,
+      prioridade: values.prioridade,
+      concluido: values.concluido,
+    });
 
-    addTarefa(values);
-    setValues({ // no final da submissao ele vai limpar o formulario
-      id: Math.floor(Math.random() * 65536),
-      titulo: '',
-      descricao: '',
-      prioridade: 1,
-      dataFim: '',
-      status: true,
+    setValues({
+      // no final da submissao ele vai limpar o formulario
+      titulo: "",
+      descricao: "",
+      prioridade: 5,
+      concluido: false,
     });
   };
 
   const validation = () => {
-    if (values.titulo.length > 0 && values.dataFim.length > 0) {
+    if (values.titulo.length) {
       setEnableButton(false);
     } else {
       setEnableButton(true);
@@ -51,7 +49,7 @@ export const FormAdd = ({ addTarefa }: Props) => {
   useEffect(() => {
     validation();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [values.titulo, values.dataFim]);
+  }, [values.titulo]);
 
   return (
     <div className={styles.container}>
@@ -81,21 +79,12 @@ export const FormAdd = ({ addTarefa }: Props) => {
             value={values.prioridade}
             onChange={(e) => handleChangeSelect(e)}
           >
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
             <option value="5">5</option>
+            <option value="4">4</option>
+            <option value="3">3</option>
+            <option value="2">2</option>
+            <option value="1">1</option>
           </select>
-          <input
-            className={styles.inputDate}
-            value={values.dataFim}
-            type="date"
-            pattern="\d{4}-\d{2}-\d{2}"
-            name="dataFim"
-            placeholder="Descrição da tarefa"
-            onChange={(e) => handleChange(e)}
-          />
         </div>
         <button
           disabled={enableButton}

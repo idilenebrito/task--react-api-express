@@ -1,5 +1,7 @@
 $white: #FFF;
 .container {
+  border-radius: 15px;
+  background-color: rgb(248, 247, 247);
   border: 2px solid #555;
   margin: 20px 0;
   display: flex;
@@ -11,10 +13,9 @@ $white: #FFF;
     padding: 20px;
 
     >button {
-      border: 1px solid #555;
       border-radius: 15px;
       margin: 10px 0 10px;
-      background: transparent;
+      background: #008080;
       outline: 0;
       width: 100%;
       padding: 10px;
@@ -23,12 +24,13 @@ $white: #FFF;
       cursor: pointer;
     }
     >button:hover {
-      background-color: #302f2f;
+      background-color: #016a6a;
     }
     
     button:disabled,
     button[disabled] {
-      background-color: #cccccc63;
+      background-color: #008080;
+      border: none;
       cursor: not-allowed;
     }
   }
@@ -47,7 +49,7 @@ $white: #FFF;
     margin: 10px 0 10px;
     background: transparent;
     outline: 0;
-    color: $white;
+    color: #555;
     font-size: 18px;
     flex: 1;
     padding: 14px;
@@ -61,18 +63,18 @@ $white: #FFF;
   align-items: center;
 
   select {
-    border: 1px solid #555;
     border-radius: 15px;
     outline: 0;
     margin: 10px 10px 10px 0;
     background: transparent;
-    color: #ccc;
+    color: #555;
     font-size: 18px;
     padding: 14px;
     flex: 1;
   }
   option {
-    background-color: #555;
+    background-color: rgb(231, 231, 231);
+ 
   }
 }
 
@@ -82,7 +84,7 @@ $white: #FFF;
   margin: 10px 0 10px;
   background: transparent;
   outline: 0;
-  color: $white;
+  color: #555;
   font-size: 18px;
   flex: 1;
   padding: 13px;

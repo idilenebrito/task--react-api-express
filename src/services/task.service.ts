@@ -3,7 +3,7 @@ import Api from './api';
 
 export const getAllTasks = async () => {
   try {
-    const tasks = await Api.get(`/tasks`);
+    const tasks = await Api.get<Tarefa[]>(`/tarefas`);
     return tasks.data;
   } catch (err) {
     throw err;
@@ -11,7 +11,7 @@ export const getAllTasks = async () => {
 };
 export const postTask = async (bodyTask: Tarefa) => {
   try {
-    const result = await Api.post(`/tasks`, bodyTask);
+    const result = await Api.post(`/tarefas`, bodyTask);
     return result;
   } catch (err) {
     throw err;
@@ -19,15 +19,24 @@ export const postTask = async (bodyTask: Tarefa) => {
 };
 export const deleteTask = async (id: number) => {
   try {
-    const result = await Api.delete(`/tasks/${id}`);
+    const result = await Api.delete(`/tarefas/${id}`);
     return result;
   } catch (err) {
     throw err;
   }
 };
-export const editTask = async (id: number, bodyTask: Tarefa) => {
+export const editStatusTask = async (id: number, bodyTask: Tarefa) => {
   try {
-    const result = await Api.put(`/tasks/${id}`, bodyTask);
+    const result = await Api.put(`/tarefas/status/${id}`, bodyTask);
+    return result;
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const editPrioridadeTask = async (id: number, bodyTask: Tarefa) => {
+  try {
+    const result = await Api.put(`/tarefas/prioridade/${id}`, bodyTask);
     return result;
   } catch (err) {
     throw err;
@@ -38,5 +47,6 @@ export const tasksService = {
   getAllTasks,
   postTask,
   deleteTask,
-  editTask,
+  editPrioridadeTask,
+  editStatusTask
 };

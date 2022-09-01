@@ -12,7 +12,7 @@
     h1 {
         margin: 0;
         padding: 0;
-        color: #fff;
+        color: rgb(10, 104, 117);
         text-align: center;
     }
 
@@ -20,11 +20,12 @@
         border: 0;
         background: transparent;
         font-size: 18px;
-        color: #fff;
+        color: rgb(10, 104, 117);
+        font-weight: 700;
         cursor: pointer;
 
         &:hover {
-            color: #50b913;
+            color: #e7900d;
             transition: 0.4s;
         }
     }

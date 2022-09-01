@@ -1,8 +1,7 @@
 export type Tarefa = {
-    id: number,
+    idTarefas?: number;
     titulo: string,
     descricao?: string,
     prioridade: number,
-    dataFim: string,
-    status: boolean,
+    concluido: boolean,
 }

@@ -8,44 +8,18 @@ export const Dashboard = () => {
 
   //Função que filtra apenas as tarefas concluídas
   const countTasksDone = () => {
-    const taksDone = tarefas.filter((item) => item.status === true);
+    const taksDone = tarefas.filter((item) => item.concluido === true);
     return taksDone;
   };
 
-  //Função que pega a data atual e formata
-  const getDateCurrent = () => {
-    let dateCurrent = new Date();
-    let day = dateCurrent.getDate();
-    let month = dateCurrent.getMonth() + 1;
-    let year = dateCurrent.getFullYear();
-
-    const dateCurrentFinal = `${year}${'-'}${
-      month < 10 ? `0${month}` : `${month}`
-    }${'-'}${day}`;
-
-    return dateCurrentFinal;
-  };
-
-  //Função que filtra as tarefas pendentes em dia e não concluídas
-  const countTaksPeding = () => {
-    const taksPending = tarefas.filter(
-      (item) => item.dataFim >= getDateCurrent() && !item.status,
-    );
-
-    return taksPending;
-  };
-
-  //Função que filtra as tarefas pendentes atrasadas e não concluídas
-  const countTaksPedingLate = () => {
-    const taksPending = tarefas.filter(
-      (item) => item.dataFim < getDateCurrent() && !item.status,
-    );
-
-    return taksPending;
+   //Função que filtra apenas as tarefas pendentes
+   const countTaksPending = () => {
+    const taksDone = tarefas.filter((item) => item.concluido === false);
+    return taksDone;
   };
 
   useEffect(() => {
-    countTaksPeding();
+    countTaksPending();
     countTasksDone();
   }, []);
 
@@ -58,11 +32,7 @@ export const Dashboard = () => {
         </div>
         <div className={styles.box}>
           <h2>Tarefas Pendentes em dia</h2>
-          <h1>{countTaksPeding().length}</h1>
-        </div>
-        <div className={styles.box}>
-          <h2>Card Pendentes atrasadas</h2>
-          <h1>{countTaksPedingLate().length}</h1>
+          <h1>{countTaksPending().length}</h1>
         </div>
       </div>
     </div>
