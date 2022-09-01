@@ -1,0 +1,89 @@
+$white: #FFF;
+.container {
+  border: 2px solid #555;
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  form {
+    width: 95%;
+    padding: 20px;
+
+    >button {
+      border: 1px solid #555;
+      border-radius: 15px;
+      margin: 10px 0 10px;
+      background: transparent;
+      outline: 0;
+      width: 100%;
+      padding: 10px;
+      color: $white;
+      font-size: 18px;
+      cursor: pointer;
+    }
+    >button:hover {
+      background-color: #302f2f;
+    }
+    
+    button:disabled,
+    button[disabled] {
+      background-color: #cccccc63;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.containerInputText {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  input {
+    border: 1px solid #555;
+    border-radius: 15px;
+    width: 97%;
+    margin: 10px 0 10px;
+    background: transparent;
+    outline: 0;
+    color: $white;
+    font-size: 18px;
+    flex: 1;
+    padding: 14px;
+  }
+}
+
+.flexBox {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+
+  select {
+    border: 1px solid #555;
+    border-radius: 15px;
+    outline: 0;
+    margin: 10px 10px 10px 0;
+    background: transparent;
+    color: #ccc;
+    font-size: 18px;
+    padding: 14px;
+    flex: 1;
+  }
+  option {
+    background-color: #555;
+  }
+}
+
+.inputDate {
+  border: 1px solid #555;
+  border-radius: 15px;
+  margin: 10px 0 10px;
+  background: transparent;
+  outline: 0;
+  color: $white;
+  font-size: 18px;
+  flex: 1;
+  padding: 13px;
+}
