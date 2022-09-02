@@ -17,7 +17,7 @@ const App = () => {
         <div className="central-area">
           <Dashboard />
           {tarefas
-            .sort((a, b) => a.prioridade - b.prioridade)
+            .sort((a, b) => b.prioridade - a.prioridade)
             .map((item, index) => (
               <TarefaItem key={index} item={item} />
             ))}

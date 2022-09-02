@@ -27,7 +27,7 @@ export const deleteTask = async (id: number) => {
 };
 export const editStatusTask = async (id: number, bodyTask: Tarefa) => {
   try {
-    const result = await Api.put(`/tarefas/status/${id}`, bodyTask);
+    const result = await Api.put(`/tarefas/status/${id}`, bodyTask); //!
     return result;
   } catch (err) {
     throw err;

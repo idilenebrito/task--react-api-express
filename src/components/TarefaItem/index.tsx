@@ -1,6 +1,11 @@
 import { Tarefa } from "../../types/Task";
+import { FormEvent } from "react";
 import styles from "./styles.module.scss";
-import { deleteTask, getAllTasks, editStatusTask } from "../../services/task.service";
+import {
+  deleteTask,
+  getAllTasks,
+  editStatusTask,
+} from "../../services/task.service";
 import { useContext } from "react";
 import { TaskContext } from "../../contexts/TaskContext";
 
@@ -9,43 +14,28 @@ type Props = {
 };
 //Card individual que exibe as informações da tarefa
 export const TarefaItem = ({ item }: Props) => {
-  const {tarefas, setTarefas} = useContext(TaskContext);
+  const { tarefas, setTarefas } = useContext(TaskContext);
+
   const removeItem = (id: number) => {
     deleteTask(id);
   };
 
   //Função que muda o status da tarefa
   const taskChange = async (id: number, status: boolean) => {
-    let novaLista = [...tarefas];
-
     const dataApi = await getAllTasks();
-    const resultSearch = dataApi.filter(
-      (item => item.idTarefas === id)
-    );
+    const bodyTask = dataApi.filter((item: Tarefa) => item.idTarefas === id);
 
-    //verifica se possui uma tarefa na api para mudar o status no item da api ou do context
-    if (resultSearch.length === 0) {
-      for (let i in novaLista) {
-        if (novaLista[i].idTarefas === id) {
-          novaLista[i].concluido = status;
-        }
+    const newState = tarefas.map((obj: Tarefa) => {
+      if (obj.idTarefas === id) {
+        bodyTask[0].concluido = status;
+        return { ...obj, obj: status };
       }
-      setTarefas(novaLista);
-    } else {
-      const bodyTask = dataApi.filter((item: Tarefa) => item.idTarefas === id);
+      return obj;
+    });
 
-      const newState = novaLista.map((obj: Tarefa) => {
-        if (obj.idTarefas === id) {
-          bodyTask[0].concluido = status;
-          return { ...obj, concluido: status };
-        }
+    setTarefas(newState);
 
-        return obj;
-      });
-
-      setTarefas(newState);
-      await editStatusTask(id, bodyTask[0]); //!
-    }
+    await editStatusTask(id, bodyTask[0]);
   };
 
   return (
@@ -59,7 +49,7 @@ export const TarefaItem = ({ item }: Props) => {
         <input
           type="checkbox"
           checked={item.concluido}
-          onChange={(e) => taskChange(item.idTarefa, e.target.checked)}
+          onChange={(e) => taskChange(item.idTarefas, e.target.checked)}
         />
         <div className={styles.infor}>
           <label
@@ -80,7 +70,7 @@ export const TarefaItem = ({ item }: Props) => {
         </div>
       </div>
 
-      <span onClick={() => removeItem(item.idTarefa)}>X</span>
+      <span onClick={() => removeItem(item.idTarefas)}>X</span>
     </div>
   );
 };
