@@ -1,5 +1,5 @@
 import { Tarefa } from "../../types/Task";
-import { FormEvent } from "react";
+import { FormEvent, useEffect } from "react";
 import styles from "./styles.module.scss";
 import {
   deleteTask,
@@ -14,29 +14,23 @@ type Props = {
 };
 //Card individual que exibe as informações da tarefa
 export const TarefaItem = ({ item }: Props) => {
-  const { tarefas, setTarefas } = useContext(TaskContext);
+  const { tarefas, getAllTasksApi } = useContext(TaskContext);
 
-  const removeItem = (id: number) => {
-    deleteTask(id);
+  const removeItem = async (id: number) => {
+    await deleteTask(id);
+    getAllTasksApi();
+
   };
 
   //Função que muda o status da tarefa
   const taskChange = async (id: number, status: boolean) => {
-    const dataApi = await getAllTasks();
-    const bodyTask = dataApi.filter((item: Tarefa) => item.idTarefas === id);
-
-    const newState = tarefas.map((obj: Tarefa) => {
-      if (obj.idTarefas === id) {
-        bodyTask[0].concluido = status;
-        return { ...obj, obj: status };
-      }
-      return obj;
-    });
-
-    setTarefas(newState);
-
-    await editStatusTask(id, bodyTask[0]);
+    await editStatusTask(id, status);
+    getAllTasksApi();
   };
+
+  useEffect(() => {
+    getAllTasks();
+  }, [tarefas]);
 
   return (
     <div
