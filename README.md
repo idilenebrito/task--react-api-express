@@ -1,3 +1,19 @@
+# Lista de Tarefas
+
+o objetivo da atividade é exercitar sobre context API e foi integrado a uma API feita com node.js/express e com ORM sequilize 
+https://github.com/idilenebrito/api-lista-tarefas-express
+
+### Tecnologias
+- React.js com TypeScript
+- React Routes DOM
+- SCSS
+
+
+### imagens do projeto
+![dashboard](https://github.com/idilenebrito/task--react-api-express/blob/main/src/assets/dashboard.png)
+![cadastro-tarefas](https://github.com/idilenebrito/task--react-api-express/blob/main/src/assets/cadastrar-tarefa.png)
+![editar-tarefa](https://github.com/idilenebrito/task--react-api-express/blob/main/src/assets/editar-tarefa.png)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
