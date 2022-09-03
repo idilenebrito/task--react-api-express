@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { TaskContext } from "../../contexts/TaskContext";
+// import Search from "../Search";
 import styles from "./styles.module.scss";
 
 export const Header = () => {
@@ -9,6 +10,7 @@ export const Header = () => {
   return (
     <div className={styles.header}>
       <h1>Lista de Tarefas</h1>
+      {/* <Search/> */}
       <button onClick={() => setIsDash(!isDash)}>
         {isDash ? "+ Nova Tarefa" : "Dashboard"}
       </button>

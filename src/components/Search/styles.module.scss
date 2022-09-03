@@ -1,0 +1,17 @@
+.containerInputText {
+    margin-left: 15vw;
+    display: flex;
+    width: 30%;
+    input {
+      border: 1px solid #555;
+      border-radius: 15px;
+      margin: 10px 0 10px;
+      background: transparent;
+      outline: 0;
+      color: #086c6c;
+      font-weight: 700;
+      font-size: 18px;
+      flex: 1;
+      padding: 14px;
+    }
+  }
