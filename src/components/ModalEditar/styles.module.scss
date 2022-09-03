@@ -1,0 +1,49 @@
+
+.header {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    border-bottom: 1px solid #444;
+    padding-bottom: 12px;
+    align-items: center;
+    padding: 10px 0;
+    margin: 20px 0 35px;
+    max-width: 1024px;
+
+    h1 {
+        margin: 0;
+        padding: 0;
+        color: rgb(10, 104, 117);
+        text-align: center;
+    }
+
+    button {
+        border: 0;
+        background: transparent;
+        font-size: 18px;
+        color: rgb(10, 104, 117);
+        font-weight: 700;
+        cursor: pointer;
+
+        &:hover {
+            color: #e7900d;
+            transition: 0.4s;
+        }
+    }
+}
+
+.container {
+    background-color: #e1e1e1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .centralArea {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1024px;
+    padding: 10px;
+  }
+  

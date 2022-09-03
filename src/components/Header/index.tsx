@@ -4,6 +4,8 @@ import styles from "./styles.module.scss";
 
 export const Header = () => {
   const { isDash, setIsDash } = useContext(TaskContext);
+
+
   return (
     <div className={styles.header}>
       <h1>Lista de Tarefas</h1>

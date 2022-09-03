@@ -9,6 +9,16 @@ export const getAllTasks = async () => {
     throw err;
   }
 };
+
+export const getTaskId = async (id: number) => {
+  try {
+    const tasksId = await Api.get<Tarefa[]>(`/tarefas/${id}`);
+    return tasksId;
+  } catch (err) {
+    throw err;
+  }
+}
+
 export const postTask = async (bodyTask: Tarefa) => {
   try {
     const result = await Api.post(`/tarefas`, bodyTask);
@@ -27,16 +37,16 @@ export const deleteTask = async (id: number) => {
 };
 export const editStatusTask = async (id: number, status: boolean) => {
   try {
-    const result = await Api.put(`/tarefas/status/${id}`, {concluido: status}); //!
+    const result = await Api.put(`/tarefas/status/${id}`, { concluido: status }); //!
     return result;
   } catch (err) {
     throw err;
   }
 };
 
-export const editPrioridadeTask = async (id: number, bodyTask: Tarefa) => {
+export const editPrioridadeTask = async (id: number, status: boolean) => {
   try {
-    const result = await Api.put(`/tarefas/prioridade/${id}`, bodyTask);
+    const result = await Api.put(`/tarefas/prioridade/${id}`, { prioridade: status });
     return result;
   } catch (err) {
     throw err;

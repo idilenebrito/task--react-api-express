@@ -1,14 +1,23 @@
-import { useState, ChangeEvent, FormEvent, useEffect } from "react";
+import { useState, ChangeEvent, FormEvent, useEffect, useContext } from "react";
 import styles from "./styles.module.scss";
 import { postTask } from "../../services/task.service";
+import Title from "../Title";
+import { TaskContext } from "../../contexts/TaskContext";
 
-export const FormAdd = () => {
+// type Props = {
+//   valorInicial: any;
+// };
+
+export const FormAdd = ({ valorInicial }: any) => {
   //values recebe o valor que o usuario esta digitando e passa ele por props para funçao que esta no app
+  const { getAllTasksApi } = useContext(TaskContext);
+
+  const valoresIniciais = valorInicial;
   const [values, setValues] = useState({
-    titulo: "",
-    descricao: "",
-    prioridade: 5,
-    concluido: false,
+    titulo: valoresIniciais?.titulo ?? "",
+    descricao: valoresIniciais?.descricao ?? "",
+    prioridade: valoresIniciais?.prioridade ?? 5,
+    concluido: valoresIniciais?.concluido ?? false,
   });
 
   const [enableButton, setEnableButton] = useState(true);
@@ -22,6 +31,7 @@ export const FormAdd = () => {
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     await postTask({
       titulo: values.titulo,
       descricao: values.descricao,
@@ -36,6 +46,7 @@ export const FormAdd = () => {
       prioridade: 5,
       concluido: false,
     });
+    getAllTasksApi();
   };
 
   const validation = () => {
@@ -52,48 +63,57 @@ export const FormAdd = () => {
   }, [values.titulo]);
 
   return (
-    <div className={styles.container}>
-      <form onSubmit={(e) => handleSubmit(e)}>
-        <div className={styles.containerInputText}>
-          <input
-            className={styles.inputText}
-            type="text"
-            name="titulo"
-            placeholder="Título da tarefa"
-            value={values.titulo}
-            onChange={(e) => handleChange(e)}
-          />
-          <input
-            className={styles.inputText}
-            type="text"
-            name="descricao"
-            placeholder="Descrição da tarefa"
-            value={values.descricao}
-            onChange={(e) => handleChange(e)}
-          />
-        </div>
-        <div className={styles.flexBox}>
-          <select
-            className={styles.select}
-            name="prioridade"
-            value={values.prioridade}
-            onChange={(e) => handleChangeSelect(e)}
+    <div>
+      {valoresIniciais?.idTarefas ? (
+        <Title name="Editar Tarefa" />
+      ) : (
+        <Title name="Cadastrar Tarefa" />
+      )}
+      <div className={styles.container}>
+        <form onSubmit={(e) => handleSubmit(e)}>
+          <div className={styles.containerInputText}>
+            <input
+              className={styles.inputText}
+              type="text"
+              name="titulo"
+              placeholder="Título da tarefa"
+              value={values.titulo}
+              onChange={(e) => handleChange(e)}
+              disabled={valoresIniciais?.idTarefas}
+            />
+            <input
+              className={styles.inputText}
+              type="text"
+              name="descricao"
+              placeholder="Descrição da tarefa"
+              value={values.descricao}
+              onChange={(e) => handleChange(e)}
+              disabled={valoresIniciais?.idTarefas}
+            />
+          </div>
+          <div className={styles.flexBox}>
+            <select
+              className={styles.select}
+              name="prioridade"
+              value={values.prioridade}
+              onChange={(e) => handleChangeSelect(e)}
+            >
+              <option value="5">5</option>
+              <option value="4">4</option>
+              <option value="3">3</option>
+              <option value="2">2</option>
+              <option value="1">1</option>
+            </select>
+          </div>
+          <button
+            disabled={enableButton}
+            type="submit"
+            className={styles.buttonSubmit}
           >
-            <option value="5">5</option>
-            <option value="4">4</option>
-            <option value="3">3</option>
-            <option value="2">2</option>
-            <option value="1">1</option>
-          </select>
-        </div>
-        <button
-          disabled={enableButton}
-          type="submit"
-          className={styles.buttonSubmit}
-        >
-          Salvar
-        </button>
-      </form>
+            Salvar
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

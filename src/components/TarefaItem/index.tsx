@@ -1,5 +1,5 @@
-import { Tarefa } from "../../types/Task";
-import { FormEvent, useEffect } from "react";
+import { IconContext } from "react-icons";
+import { useEffect } from "react";
 import styles from "./styles.module.scss";
 import {
   deleteTask,
@@ -8,10 +8,14 @@ import {
 } from "../../services/task.service";
 import { useContext } from "react";
 import { TaskContext } from "../../contexts/TaskContext";
+import { BsTrash } from "react-icons/bs";
+import { MdOutlineModeEditOutline } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 type Props = {
   item: any;
 };
+
 //Card individual que exibe as informações da tarefa
 export const TarefaItem = ({ item }: Props) => {
   const { tarefas, getAllTasksApi } = useContext(TaskContext);
@@ -19,8 +23,12 @@ export const TarefaItem = ({ item }: Props) => {
   const removeItem = async (id: number) => {
     await deleteTask(id);
     getAllTasksApi();
-
   };
+
+  // const taskChangePriority = async (id: number, status: boolean) => {
+  //   await editPrioridadeTask(id, status);
+  //   getAllTasksApi();
+  // };
 
   //Função que muda o status da tarefa
   const taskChange = async (id: number, status: boolean) => {
@@ -63,8 +71,17 @@ export const TarefaItem = ({ item }: Props) => {
           </label>
         </div>
       </div>
-
-      <span onClick={() => removeItem(item.idTarefas)}>X</span>
+      <IconContext.Provider value={{ color: "white", size: "38" }}>
+       <Link to={`/editar/${item.idTarefas}`}>
+        <MdOutlineModeEditOutline
+          style={{ marginRight: "20" }}
+        />
+        </Link>
+        <BsTrash
+          style={{ marginRight: "20" }}
+          onClick={() => removeItem(item.idTarefas)}
+        />
+      </IconContext.Provider>
     </div>
   );
 };
